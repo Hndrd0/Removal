@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Silhouex • AI Background Removal Benchmark Matrix</title>
+  <style>
+    body { background: #0b0f19; color: #f8fafc; font-family: system-ui, sans-serif; margin: 0; padding: 2rem; }
+    h1 { color: #10b981; font-size: 2rem; margin-bottom: 0.5rem; }
+    p.subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 2rem; }
+    .matrix { display: grid; grid-template-columns: 180px repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1rem; text-align: center; }
+    .checker { background-color: #1e293b; background-image: linear-gradient(45deg, #0f172a 25%, transparent 25%), linear-gradient(-45deg, #0f172a 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #0f172a 75%), linear-gradient(-45deg, transparent 75%, #0f172a 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; border-radius: 8px; overflow: hidden; height: 220px; display: flex; align-items: center; justify-content: center; }
+    .checker img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; margin-top: 0.5rem; background: #064e3b; color: #34d399; }
+    .metrics { font-size: 0.8rem; color: #94a3b8; margin-top: 0.5rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #334155; padding: 8px 12px; text-align: left; }
+    th { background: #1e293b; color: #38bdf8; }
+  </style>
+</head>
+<body>
+  <h1>Silhouex • Benchmark Matrix & Model Comparison</h1>
+  <p class="subtitle">Empirical comparison of candidate segmentation models on difficult subjects (hair, fur, products).</p>
+<h2>Test Case: furry-cat.jpg</h2>
+<div class='matrix'>
+
+        <div class="card">
+          <div style="font-weight: bold; margin-bottom: 0.5rem; color: #e2e8f0;">Original Image</div>
+          <div class="checker"><img src="images/furry-cat.jpg" alt="Original"></div>
+          <div class="metrics">Input Reference</div>
+        </div>
+        
+            <div class="card">
+              <div style="font-weight: bold; margin-bottom: 0.5rem; color: #34d399;">isnet-general-use</div>
+              <div class="checker"><img src="outputs/furry-cat_isnet-general-use.png" alt="isnet-general-use"></div>
+              <div class="badge">4484.2 ms</div>
+              <div class="metrics">Edge: 9831 px | Cov: 22.7%</div>
+            </div>
+            
+            <div class="card">
+              <div style="font-weight: bold; margin-bottom: 0.5rem; color: #34d399;">u2net</div>
+              <div class="checker"><img src="outputs/furry-cat_u2net.png" alt="u2net"></div>
+              <div class="badge">1399.7 ms</div>
+              <div class="metrics">Edge: 9724 px | Cov: 22.57%</div>
+            </div>
+            
+            <div class="card">
+              <div style="font-weight: bold; margin-bottom: 0.5rem; color: #34d399;">birefnet-general</div>
+              <div class="checker"><img src="outputs/furry-cat_birefnet-general.png" alt="birefnet-general"></div>
+              <div class="badge">88883.6 ms</div>
+              <div class="metrics">Edge: 6310 px | Cov: 22.63%</div>
+            </div>
+            </div>
+<h2>Test Case: portrait-hair.jpg</h2>
+<div class='matrix'>
+
+        <div class="card">
+          <div style="font-weight: bold; margin-bottom: 0.5rem; color: #e2e8f0;">Original Image</div>
+          <div class="checker"><img src="images/portrait-hair.jpg" alt="Original"></div>
+          <div class="metrics">Input Reference</div>
+        </div>
+        
+            <div class="card">
+              <div style="font-weight: bold; margin-bottom: 0.5rem; color: #34d399;">isnet-general-use</div>
+              <div class="checker"><img src="outputs/portrait-hair_isnet-general-use.png" alt="isnet-general-use"></div>
+              <div class="badge">4834.4 ms</div>
+              <div class="metrics">Edge: 22203 px | Cov: 42.04%</div>
+            </div>
+            
+            <div class="card">
+              <div style="font-weight: bold; margin-bottom: 0.5rem; color: #34d399;">u2net</div>
+              <div class="checker"><img src="outputs/portrait-hair_u2net.png" alt="u2net"></div>
+              <div class="badge">1615.5 ms</div>
+              <div class="metrics">Edge: 11151 px | Cov: 41.23%</div>
+            </div>
+            
+            <div class="card">
+              <div style="font-weight: bold; margin-bottom: 0.5rem; color: #34d399;">birefnet-general</div>
+              <div class="checker"><img src="outputs/portrait-hair_birefnet-general.png" alt="birefnet-general"></div>
+              <div class="badge">101925.0 ms</div>
+              <div class="metrics">Edge: 41389 px | Cov: 43.51%</div>
+            </div>
+            </div>
+<h2>Test Case: product-shoe.jpg</h2>
+<div class='matrix'>
+
+        <div class="card">
+          <div style="font-weight: bold; margin-bottom: 0.5rem; color: #e2e8f0;">Original Image</div>
+          <div class="checker"><img src="images/product-shoe.jpg" alt="Original"></div>
+          <div class="metrics">Input Reference</div>
+        </div>
+        
+            <div class="card">
+              <div style="font-weight: bold; margin-bottom: 0.5rem; color: #34d399;">isnet-general-use</div>
+              <div class="checker"><img src="outputs/product-shoe_isnet-general-use.png" alt="isnet-general-use"></div>
+              <div class="badge">3275.5 ms</div>
+              <div class="metrics">Edge: 36932 px | Cov: 18.6%</div>
+            </div>
+            
+            <div class="card">
+              <div style="font-weight: bold; margin-bottom: 0.5rem; color: #34d399;">u2net</div>
+              <div class="checker"><img src="outputs/product-shoe_u2net.png" alt="u2net"></div>
+              <div class="badge">1318.6 ms</div>
+              <div class="metrics">Edge: 5260 px | Cov: 18.69%</div>
+            </div>
+            
+            <div class="card">
+              <div style="font-weight: bold; margin-bottom: 0.5rem; color: #34d399;">birefnet-general</div>
+              <div class="checker"><img src="outputs/product-shoe_birefnet-general.png" alt="birefnet-general"></div>
+              <div class="badge">90934.0 ms</div>
+              <div class="metrics">Edge: 3949 px | Cov: 14.77%</div>
+            </div>
+            </div>
+
+</body>
+</html>

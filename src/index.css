@@ -1,0 +1,144 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Bento Grid · theme: Coral · pre-emit critique: P5 H5 E5 S5 R5 V5 · nav: N5 · footer: Ft2 · contrast: pass (40–41) · slop: pass (42–45) */
+
+@import "tailwindcss";
+
+@theme {
+  --color-paper: var(--color-paper);
+  --color-paper-2: var(--color-paper-2);
+  --color-paper-3: var(--color-paper-3);
+  --color-rule: var(--color-rule);
+  --color-rule-subtle: var(--color-rule-subtle);
+  --color-ink: var(--color-ink);
+  --color-muted: var(--color-muted);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-ink: var(--color-accent-ink);
+  --color-focus: var(--color-focus);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+@layer base {
+  :root {
+    /* Hallmark Coral Light Mode Tokens (Warm-grey paper, Stripe-like warmth, signature coral accent) */
+    --color-paper: oklch(97.5% 0.005 45); /* #FAF8F6 */
+    --color-paper-2: oklch(94% 0.007 45); /* #F2ECE7 */
+    --color-paper-3: oklch(89% 0.010 45); /* #E3DBD3 */
+    --color-rule: oklch(87% 0.006 45); /* #DFD8D1 */
+    --color-rule-subtle: oklch(92% 0.004 45);
+    --color-ink: oklch(18% 0.010 45); /* #1F1C1A */
+    --color-muted: oklch(48% 0.010 45); /* #736D67 */
+    --color-accent: oklch(65% 0.20 32); /* #FF5C3E Hallmark Coral */
+    --color-accent-hover: oklch(60% 0.21 32);
+    --color-accent-ink: oklch(98% 0.005 32);
+    --color-focus: oklch(65% 0.20 32);
+
+    --font-display: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    --lh-display: 1.1;
+  }
+
+  .dark {
+    /* Hallmark Coral Dark Mode Tokens (Warm obsidian ground, luminous coral accent, warm ivory ink) */
+    --color-paper: oklch(14% 0.008 40); /* #191716 */
+    --color-paper-2: oklch(19% 0.010 40); /* #252220 */
+    --color-paper-3: oklch(24% 0.012 40); /* #312D2B */
+    --color-rule: oklch(28% 0.010 40); /* #3D3835 */
+    --color-rule-subtle: oklch(22% 0.008 40);
+    --color-ink: oklch(94% 0.008 45); /* #F5F3EF */
+    --color-muted: oklch(65% 0.008 45); /* #A09B95 */
+    --color-accent: oklch(70% 0.18 32); /* #FF6F52 Luminous Coral */
+    --color-accent-hover: oklch(75% 0.17 32);
+    --color-accent-ink: oklch(98% 0.005 32);
+    --color-focus: oklch(70% 0.18 32);
+  }
+
+  html, body {
+    overflow-x: clip; /* Gate 34: clip on both html and body */
+    min-height: 100vh;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .dark body {
+    font-weight: 380;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1, h2, h3 {
+    letter-spacing: -0.025em;
+    line-height: var(--lh-display);
+    font-style: normal;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 1px;
+  }
+}
+
+/* Studio Transparency Checkerboard */
+.checkerboard-pattern {
+  background-color: var(--color-paper-2);
+  background-image: 
+    linear-gradient(45deg, var(--color-paper-3) 25%, transparent 25%), 
+    linear-gradient(-45deg, var(--color-paper-3) 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, var(--color-paper-3) 75%), 
+    linear-gradient(-45deg, transparent 75%, var(--color-paper-3) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.checkerboard-light {
+  background-color: #f7f4f0;
+  background-image: 
+    linear-gradient(45deg, #e7e2dc 25%, transparent 25%), 
+    linear-gradient(-45deg, #e7e2dc 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #e7e2dc 75%), 
+    linear-gradient(-45deg, transparent 75%, #e7e2dc 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.checkerboard-dark {
+  background-color: #191716;
+  background-image: 
+    linear-gradient(45deg, #272321 25%, transparent 25%), 
+    linear-gradient(-45deg, #272321 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #272321 75%), 
+    linear-gradient(-45deg, transparent 75%, #272321 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-rule);
+  border-radius: 9999px; /* Soft pill radii for Coral */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}

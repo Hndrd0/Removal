@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-09-11 13:26:20",
+  "models": {
+    "isnet-general-use": {
+      "displayName": "IS-Net General Use (Client & Server Standard)",
+      "type": "Dichotomous Image Segmentation (DIS)",
+      "inBrowserSupport": "Yes (via @imgly/background-removal)",
+      "loadTimeSeconds": 1.02,
+      "imageRuns": {
+        "furry-cat.jpg": {
+          "inferenceMs": 4484.2,
+          "coveragePct": 22.7,
+          "semiTransparentEdgePixels": 9831,
+          "edgeSoftnessPct": 6.77,
+          "outFilename": "furry-cat_isnet-general-use.png"
+        },
+        "portrait-hair.jpg": {
+          "inferenceMs": 4834.4,
+          "coveragePct": 42.04,
+          "semiTransparentEdgePixels": 22203,
+          "edgeSoftnessPct": 6.6,
+          "outFilename": "portrait-hair_isnet-general-use.png"
+        },
+        "product-shoe.jpg": {
+          "inferenceMs": 3275.5,
+          "coveragePct": 18.6,
+          "semiTransparentEdgePixels": 36932,
+          "edgeSoftnessPct": 36.77,
+          "outFilename": "product-shoe_isnet-general-use.png"
+        }
+      },
+      "avgInferenceMs": 4198.0
+    },
+    "u2net": {
+      "displayName": "U2-Net Classic (Fast / Low-Resource)",
+      "type": "Nested U-Structure",
+      "inBrowserSupport": "Yes",
+      "loadTimeSeconds": 1.31,
+      "imageRuns": {
+        "furry-cat.jpg": {
+          "inferenceMs": 1399.7,
+          "coveragePct": 22.57,
+          "semiTransparentEdgePixels": 9724,
+          "edgeSoftnessPct": 6.73,
+          "outFilename": "furry-cat_u2net.png"
+        },
+        "portrait-hair.jpg": {
+          "inferenceMs": 1615.5,
+          "coveragePct": 41.23,
+          "semiTransparentEdgePixels": 11151,
+          "edgeSoftnessPct": 3.38,
+          "outFilename": "portrait-hair_u2net.png"
+        },
+        "product-shoe.jpg": {
+          "inferenceMs": 1318.6,
+          "coveragePct": 18.69,
+          "semiTransparentEdgePixels": 5260,
+          "edgeSoftnessPct": 5.21,
+          "outFilename": "product-shoe_u2net.png"
+        }
+      },
+      "avgInferenceMs": 1444.6
+    },
+    "birefnet-general": {
+      "displayName": "BiRefNet General (Ultra Studio DIS)",
+      "type": "Bilateral Reference DIS",
+      "inBrowserSupport": "Yes (via ONNX / WebGPU)",
+      "loadTimeSeconds": 22.37,
+      "imageRuns": {
+        "furry-cat.jpg": {
+          "inferenceMs": 88883.6,
+          "coveragePct": 22.63,
+          "semiTransparentEdgePixels": 6310,
+          "edgeSoftnessPct": 4.36,
+          "outFilename": "furry-cat_birefnet-general.png"
+        },
+        "portrait-hair.jpg": {
+          "inferenceMs": 101925.0,
+          "coveragePct": 43.51,
+          "semiTransparentEdgePixels": 41389,
+          "edgeSoftnessPct": 11.89,
+          "outFilename": "portrait-hair_birefnet-general.png"
+        },
+        "product-shoe.jpg": {
+          "inferenceMs": 90934.0,
+          "coveragePct": 14.77,
+          "semiTransparentEdgePixels": 3949,
+          "edgeSoftnessPct": 4.95,
+          "outFilename": "product-shoe_birefnet-general.png"
+        }
+      },
+      "avgInferenceMs": 93914.2
+    }
+  },
+  "images": [
+    "furry-cat.jpg",
+    "portrait-hair.jpg",
+    "product-shoe.jpg"
+  ],
+  "comparisons": []
+}

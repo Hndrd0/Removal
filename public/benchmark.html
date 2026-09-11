@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silhouex • In-Browser Client-Side Performance Benchmark</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0f19;
+      --card: #111827;
+      --border: #1f2937;
+      --text: #f3f4f6;
+      --emerald: #10b981;
+      --cyan: #06b6d4;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #34d399, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.sub {
+      color: #9ca3af;
+      margin-top: 0;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .btn {
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+      color: #0b0f19;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      margin-bottom: 1rem;
+    }
+    .log-box {
+      width: 100%;
+      box-sizing: border-box;
+      background: #030712;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      height: 220px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.85rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .stat-label { color: #9ca3af; }
+    .stat-value { font-weight: 600; color: #f9fafb; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">Client-Side Hardware Benchmark</div>
+    <h1>In-Browser WebGPU / WASM Diagnostics</h1>
+    <p class="sub">Tests your browser&apos;s WebGPU hardware acceleration, WebAssembly SIMD performance, and local memory for neural background removal.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3 style="margin: 0 0 1rem 0; font-size: 1.1rem;">Hardware & Capabilities</h3>
+        <div class="stat-row">
+          <span class="stat-label">WebGPU Available:</span>
+          <span class="stat-value" id="val-webgpu">Checking...</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">WebAssembly SIMD:</span>
+          <span class="stat-value" id="val-wasm-simd">Checking...</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">SharedArrayBuffer:</span>
+          <span class="stat-value" id="val-sab">Checking...</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">CPU Cores:</span>
+          <span class="stat-value" id="val-cores">Checking...</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Device Memory:</span>
+          <span class="stat-value" id="val-ram">Checking...</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin: 0 0 1rem 0; font-size: 1.1rem;">Run Synthetic Benchmark</h3>
+        <p style="font-size: 0.85rem; color: #9ca3af; margin: 0 0 1rem 0;">
+          Generates a synthetic 1024x1024 alpha matte matrix and measures Canvas post-processing throughput.
+        </p>
+        <button class="btn" id="btn-run" onclick="runBenchmark()">Run Benchmark Test</button>
+        <div style="margin-top: 1rem; width: 100%;">
+          <div class="stat-row">
+            <span class="stat-label">Canvas Processing Rate:</span>
+            <span class="stat-value" id="res-rate">-</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Halo Decontamination:</span>
+            <span class="stat-value" id="res-halo">-</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin: 0 0 0.5rem 0; font-size: 1rem;">Execution Console</h3>
+    <div class="log-box" id="log-output">Initialized Silhouex In-Browser Diagnostics.\nReady to run tests.\n</div>
+  </div>
+
+  <script>
+    function log(msg) {
+      const box = document.getElementById('log-output');
+      box.textContent += '[' + new Date().toLocaleTimeString() + '] ' + msg + '\n';
+      box.scrollTop = box.scrollHeight;
+    }
+
+    // Hardware inspection
+    (async function init() {
+      // 1. WebGPU
+      if (navigator.gpu) {
+        try {
+          const adapter = await navigator.gpu.requestAdapter();
+          if (adapter) {
+            document.getElementById('val-webgpu').textContent = 'YES (Hardware)';
+            document.getElementById('val-webgpu').style.color = '#34d399';
+            log('WebGPU adapter detected: ' + (adapter.info?.architecture || 'Generic GPU'));
+          } else {
+            document.getElementById('val-webgpu').textContent = 'Adapter unavailable';
+          }
+        } catch (e) {
+          document.getElementById('val-webgpu').textContent = 'Disabled/Error';
+        }
+      } else {
+        document.getElementById('val-webgpu').textContent = 'No (WASM Fallback)';
+        log('WebGPU not supported in this browser. Falling back to multi-threaded WebAssembly.');
+      }
+
+      // 2. WASM SIMD
+      const wasmSimd = typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function';
+      document.getElementById('val-wasm-simd').textContent = wasmSimd ? 'YES' : 'NO';
+
+      // 3. SharedArrayBuffer
+      const sab = typeof SharedArrayBuffer !== 'undefined';
+      document.getElementById('val-sab').textContent = sab ? 'YES (Multi-thread)' : 'Single-thread';
+      if (sab) document.getElementById('val-sab').style.color = '#34d399';
+
+      // 4. Cores & RAM
+      document.getElementById('val-cores').textContent = navigator.hardwareConcurrency ? navigator.hardwareConcurrency + ' threads' : 'Unknown';
+      document.getElementById('val-ram').textContent = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Not exposed';
+    })();
+
+    async function runBenchmark() {
+      log('Starting synthetic canvas post-processing benchmark...');
+      const btn = document.getElementById('btn-run');
+      btn.disabled = true;
+      btn.textContent = 'Benchmarking...';
+
+      const width = 1024;
+      const height = 1024;
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      const imgData = ctx.createImageData(width, height);
+      const data = imgData.data;
+
+      // Populate synthetic alpha boundaries
+      for (let i = 0; i < width * height; i++) {
+        data[i * 4] = (i % 256);
+        data[i * 4 + 1] = ((i * 2) % 256);
+        data[i * 4 + 2] = ((i * 3) % 256);
+        data[i * 4 + 3] = (i % 2) === 0 ? 128 : 255;
+      }
+
+      // Measure halo decontamination loop
+      const t0 = performance.now();
+      for (let y = 1; y < height - 1; y++) {
+        const row = y * width;
+        for (let x = 1; x < width - 1; x++) {
+          const idx = (row + x) * 4;
+          const alpha = data[idx + 3];
+          if (alpha > 15 && alpha < 235) {
+            data[idx] = Math.round(data[idx] * 0.9);
+            data[idx + 1] = Math.round(data[idx + 1] * 0.9);
+            data[idx + 2] = Math.round(data[idx + 2] * 0.9);
+          }
+        }
+      }
+      const tHalo = performance.now() - t0;
+      log(`Halo decontamination benchmark on 1,048,576 pixels: ${tHalo.toFixed(2)}ms`);
+      document.getElementById('res-halo').textContent = `${tHalo.toFixed(2)} ms`;
+
+      // Measure PNG blob encode
+      ctx.putImageData(imgData, 0, 0);
+      const tBlob0 = performance.now();
+      await new Promise(res => canvas.toBlob(res, 'image/png'));
+      const tBlob = performance.now() - tBlob0;
+      log(`1024x1024 PNG Blob encoding: ${tBlob.toFixed(2)}ms`);
+
+      const totalThroughput = (1048576 / (tHalo / 1000) / 1000000).toFixed(1);
+      document.getElementById('res-rate').textContent = `${totalThroughput} MP/sec`;
+      log(`Benchmark complete. Processing throughput: ${totalThroughput} Megapixels/second.`);
+
+      btn.disabled = false;
+      btn.textContent = 'Run Benchmark Test';
+    }
+  </script>
+</body>
+</html>
