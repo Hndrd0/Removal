@@ -52,7 +52,7 @@ export const PluginsModal: React.FC<PluginsModalProps> = ({ isOpen, onClose }) =
         </div>
 
         <p className="text-xs text-muted leading-relaxed mb-6">
-          Bring Silhouex&apos;s 100% private in-browser neural segmentation into your favorite design and production software.
+          Bring Removal Studio&apos;s 100% private in-browser neural segmentation into your favorite design and production software.
         </p>
 
         <div className="space-y-3 font-mono text-xs">

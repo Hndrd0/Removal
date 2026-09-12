@@ -26,9 +26,9 @@ export const ActionBar: React.FC<ActionBarProps> = ({
     const link = document.createElement('a');
     link.href = result.url;
     
-    // Sensible naming: original-name-silhouex.png
+    // Sensible naming: original-name-removal-studio.png
     const baseName = result.metadata.name.replace(/\.[^/.]+$/, '');
-    link.download = `${baseName}-silhouex.png`;
+    link.download = `${baseName}-removal-studio.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

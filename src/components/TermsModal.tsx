@@ -55,7 +55,7 @@ export const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose }) => {
           <div>
             <h3 className="font-display text-sm uppercase text-ink mb-1">1. FREE & OPEN SERVICE</h3>
             <p className="text-xs text-muted">
-              Silhouex is provided free of charge for personal, educational, and commercial background removal workflows. You retain full copyright and ownership of any images you process.
+              Removal Studio is provided free of charge for personal, educational, and commercial background removal workflows. You retain full copyright and ownership of any images you process.
             </p>
           </div>
 

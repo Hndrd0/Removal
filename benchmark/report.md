@@ -1,4 +1,4 @@
-# Silhouex Model Benchmark Report
+# Removal Studio Model Benchmark Report
 
 **Date:** 2026-09-11 13:26:20
 

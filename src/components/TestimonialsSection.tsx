@@ -40,7 +40,7 @@ export const TestimonialsSection: React.FC = () => {
           They love us. You will too.
         </h2>
         <p className="text-muted text-sm sm:text-base leading-relaxed">
-          Over 1,000+ creators, photographers, and developers rely on Silhouex for studio-grade isolation.
+          Over 1,000+ creators, photographers, and developers rely on Removal Studio for studio-grade isolation.
         </p>
       </div>
 

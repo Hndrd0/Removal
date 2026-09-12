@@ -58,7 +58,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
               Your images never leave your device
             </h4>
             <p className="text-xs text-muted">
-              Unlike cloud-based services that upload your private photos to remote servers, Silhouex runs the entire AI neural matting model directly inside your local web browser using WebGPU and WebAssembly.
+              Unlike cloud-based services that upload your private photos to remote servers, Removal Studio runs the entire AI neural matting model directly inside your local web browser using WebGPU and WebAssembly.
             </p>
           </div>
 

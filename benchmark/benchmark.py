@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Silhouex Model Benchmarking Suite
+Removal Studio Model Benchmarking Suite
 Evaluates candidate background removal models:
 - birefnet-general (Bilateral Reference Network)
 - isnet-general-use (Dichotomous Image Segmentation - ISNet)
@@ -56,7 +56,7 @@ def image_to_base64(img: Image.Image) -> str:
 
 def run_benchmarks():
     print("=" * 60)
-    print("SILHOUEX MODEL BENCHMARKING SUITE")
+    print("REMOVAL_STUDIO MODEL BENCHMARKING SUITE")
     print("=" * 60)
 
     image_files = [f for f in os.listdir(IMAGE_DIR) if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))]
@@ -149,7 +149,7 @@ def run_benchmarks():
 def generate_markdown_report(results):
     report_path = os.path.join(os.path.dirname(__file__), "report.md")
     with open(report_path, "w") as f:
-        f.write("# Silhouex Model Benchmark Report\n\n")
+        f.write("# Removal Studio Model Benchmark Report\n\n")
         f.write(f"**Date:** {results['timestamp']}\n\n")
         f.write("## 1. Executive Summary & Model Selection\n\n")
         f.write("We evaluated three primary model families:\n")
@@ -187,7 +187,7 @@ def generate_html_comparison(results):
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Silhouex • AI Background Removal Benchmark Matrix</title>
+  <title>Removal Studio • AI Background Removal Benchmark Matrix</title>
   <style>
     body { background: #0b0f19; color: #f8fafc; font-family: system-ui, sans-serif; margin: 0; padding: 2rem; }
     h1 { color: #10b981; font-size: 2rem; margin-bottom: 0.5rem; }
@@ -204,7 +204,7 @@ def generate_html_comparison(results):
   </style>
 </head>
 <body>
-  <h1>Silhouex • Benchmark Matrix & Model Comparison</h1>
+  <h1>Removal Studio • Benchmark Matrix & Model Comparison</h1>
   <p class="subtitle">Empirical comparison of candidate segmentation models on difficult subjects (hair, fur, products).</p>
 """
 

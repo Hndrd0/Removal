@@ -57,12 +57,7 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
   const brushCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const lastPointRef = useRef<Point | null>(null);
 
-  // Fit to screen on initial mount
-  useEffect(() => {
-    handleFitToScreen();
-  }, [width, height]);
-
-  const handleFitToScreen = () => {
+  const handleFitToScreen = useCallback(() => {
     if (!containerRef.current) return;
     const { clientWidth, clientHeight } = containerRef.current;
     if (clientWidth === 0 || clientHeight === 0) return;
@@ -74,7 +69,12 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
 
     setZoom(Math.max(0.15, Number(fitScale.toFixed(2))));
     setPan({ x: 0, y: 0 });
-  };
+  }, [width, height]);
+
+  // Fit to screen on initial mount
+  useEffect(() => {
+    handleFitToScreen();
+  }, [handleFitToScreen]);
 
   const handleZoomIn = () => setZoom((prev) => Math.min(prev + 0.25, 4));
   const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.25, 0.15));
@@ -174,7 +174,7 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
     }
   };
 
-  const handleUndo = async () => {
+  const handleUndo = useCallback(async () => {
     if (compositorRef.current && compositorRef.current.undo()) {
       setCanUndo(compositorRef.current.canUndo());
       setCanRedo(compositorRef.current.canRedo());
@@ -184,9 +184,9 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
         onCutoutUpdated(newBlob, URL.createObjectURL(newBlob));
       }
     }
-  };
+  }, [redrawBrushCanvas, onCutoutUpdated]);
 
-  const handleRedo = async () => {
+  const handleRedo = useCallback(async () => {
     if (compositorRef.current && compositorRef.current.redo()) {
       setCanUndo(compositorRef.current.canUndo());
       setCanRedo(compositorRef.current.canRedo());
@@ -196,7 +196,7 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
         onCutoutUpdated(newBlob, URL.createObjectURL(newBlob));
       }
     }
-  };
+  }, [redrawBrushCanvas, onCutoutUpdated]);
 
   const handleResetToAI = async () => {
     if (compositorRef.current) {
@@ -239,7 +239,7 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [viewMode]);
+  }, [viewMode, handleUndo, handleRedo]);
 
   // Pointer position mapper from screen coords to native image coords
   const getCanvasCoords = (e: React.PointerEvent<HTMLCanvasElement>): Point => {
@@ -295,12 +295,60 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
     commitStroke();
   };
 
-  // Mouse wheel zoom
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    const delta = e.deltaY * -0.0015;
-    setZoom((prev) => Math.min(Math.max(0.15, prev + delta), 4));
-  };
+  // Native non-passive wheel listener to strictly isolate scrolling within the viewport
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const onWheelNative = (e: WheelEvent) => {
+      // Strictly prevent scrolling the entire browser window / page
+      e.preventDefault();
+      e.stopPropagation();
+
+      // 1. Pinch on trackpad (emits ctrlKey) or Ctrl / Cmd / Alt + Wheel -> Zoom
+      if (e.ctrlKey || e.metaKey || e.altKey) {
+        const zoomFactor = -e.deltaY * 0.0025;
+        setZoom((prev) => Math.min(4, Math.max(0.15, Number((prev * (1 + zoomFactor)).toFixed(3)))));
+        return;
+      }
+
+      // 2. Horizontal pan with Shift key
+      if (e.shiftKey) {
+        setPan((prev) => ({
+          x: prev.x - (e.deltaY || e.deltaX),
+          y: prev.y,
+        }));
+        return;
+      }
+
+      // 3. Trackpad horizontal swipe
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 0) {
+        setPan((prev) => ({
+          x: prev.x - e.deltaX,
+          y: prev.y,
+        }));
+        return;
+      }
+
+      // 4. Regular scroll:
+      // When in brush mode or when zoomed in (zoom > 1.05), scrolling pans the view inside the viewport
+      if (viewMode === 'brush' || zoom > 1.05) {
+        setPan((prev) => ({
+          x: prev.x - (e.deltaX || 0),
+          y: prev.y - e.deltaY,
+        }));
+      } else {
+        // When at fit/default size, scrolling zooms in
+        const delta = e.deltaY * -0.0015;
+        setZoom((prev) => Math.min(Math.max(0.15, prev + delta), 4));
+      }
+    };
+
+    container.addEventListener('wheel', onWheelNative, { passive: false });
+    return () => {
+      container.removeEventListener('wheel', onWheelNative);
+    };
+  }, [viewMode, zoom]);
 
   // Pan interaction (when not in brush mode or when middle mouse clicked)
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -520,13 +568,12 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
         {/* Viewport Canvas Frame */}
         <div
           ref={containerRef}
-          onWheel={handleWheel}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          className="relative flex-1 w-full h-[480px] sm:h-[580px] md:h-[640px] rounded-3xl border border-rule bg-paper overflow-hidden select-none shadow-xl flex items-center justify-center"
+          className="relative flex-1 w-full h-[480px] sm:h-[580px] md:h-[640px] rounded-3xl border border-rule bg-paper overflow-hidden select-none shadow-xl flex items-center justify-center overscroll-contain touch-none"
         >
           {/* Zoom & Pan Wrapper */}
           <div
@@ -662,7 +709,7 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
           {/* Bottom Helper Hint */}
           <div className="absolute bottom-3 left-4 z-20 flex items-center gap-2 text-[11px] text-muted bg-paper/90 backdrop-blur-sm px-3 py-1 rounded-full border border-rule pointer-events-none font-mono shadow-sm">
             <Move className="w-3 h-3 text-ink" />
-            <span>{viewMode === 'brush' ? 'Draw to Erase/Restore • Drag with middle mouse or scroll to pan/zoom' : 'Click & drag to pan • Scroll to zoom'}</span>
+            <span>{viewMode === 'brush' ? 'Draw to Erase/Restore • Scroll to pan • Ctrl+Scroll to zoom' : 'Click & drag or scroll to pan • Ctrl+Scroll to zoom'}</span>
           </div>
         </div>
 

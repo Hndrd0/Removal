@@ -20,7 +20,7 @@ export const ApiModal: React.FC<ApiModalProps> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const codeSnippet = `import { removeBackground } from '@silhouex/client';
+  const codeSnippet = `import { removeBackground } from '@removal-studio/client';
 
 // 100% Client-Side WebGPU / WASM execution
 const imageFile = document.querySelector('input[type="file"]').files[0];

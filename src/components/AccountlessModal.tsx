@@ -58,7 +58,7 @@ export const AccountlessModal: React.FC<AccountlessModalProps> = ({
 
         <div className="space-y-4 text-xs text-muted leading-relaxed mb-6">
           <p className="text-sm text-ink font-normal">
-            Unlike cloud background removers that force you to create accounts, buy subscriptions, or burn credits, <strong>Silhouex works immediately right in your browser</strong>.
+            Unlike cloud background removers that force you to create accounts, buy subscriptions, or burn credits, <strong>Removal Studio works immediately right in your browser</strong>.
           </p>
 
           <div className="p-4 rounded-2xl bg-paper border border-rule space-y-2.5">

@@ -54,7 +54,7 @@ export const WalkthroughModal: React.FC<WalkthroughModalProps> = ({
               First-Time Visitor Guide
             </div>
             <h2 id="walkthrough-modal-title" className="font-display font-bold text-2xl sm:text-3xl text-ink tracking-tight">
-              Welcome to Silhouex
+              Welcome to Removal Studio
             </h2>
           </div>
         </div>
@@ -78,7 +78,7 @@ export const WalkthroughModal: React.FC<WalkthroughModalProps> = ({
             </div>
 
             <p className="text-muted text-xs sm:text-sm leading-relaxed mb-4">
-              Unlike cloud background removers that force you to create accounts, buy subscriptions, or burn credits, Silhouex works immediately right in your browser.
+              Unlike cloud background removers that force you to create accounts, buy subscriptions, or burn credits, Removal Studio works immediately right in your browser.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
@@ -118,7 +118,7 @@ export const WalkthroughModal: React.FC<WalkthroughModalProps> = ({
             </div>
 
             <p className="text-muted text-xs sm:text-sm leading-relaxed mb-4">
-              Because Silhouex runs 100% on your device&apos;s GPU via WebGPU and WebAssembly, we don&apos;t pay cloud server bills to process your images. Therefore, we pass that 100% savings directly to you &mdash; run by the love of you.
+              Because Removal Studio runs 100% on your device&apos;s GPU via WebGPU and WebAssembly, we don&apos;t pay cloud server bills to process your images. Therefore, we pass that 100% savings directly to you &mdash; run by the love of you.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">

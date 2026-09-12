@@ -1,4 +1,4 @@
-# Silhouex
+# Removal Studio
 
 > **A 1:1-Quality, 100% Client-Side, Privacy-First Remove.bg Alternative**
 >
@@ -15,7 +15,7 @@
 
 Most background-removal tools either upload your private photos to remote cloud servers, force user registration, degrade output resolution behind a paywall, or spam you with invasive ads and tracking pixels.
 
-**Silhouex is an independent, production-grade alternative built on three uncompromising principles:**
+**Removal Studio is an independent, production-grade alternative built on three uncompromising principles:**
 
 1. **Quality Comes First**: State-of-the-art Dichotomous Image Segmentation (IS-Net / BiRefNet) with edge-aware halo decontamination and morphological refinement. Hair, fur, and intricate edges are extracted with studio precision.
 2. **Privacy Comes Second**: **100% client-sided**. The neural network executes entirely inside your device's web browser using **WebGPU** with automatic fallback to **multi-threaded WebAssembly (WASM SIMD)**. Not a single pixel or byte of your image ever leaves your computer.
@@ -55,8 +55,8 @@ Most background-removal tools either upload your private photos to remote cloud 
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/your-username/silhouex.git
-cd silhouex
+git clone https://github.com/your-username/removal-studio.git
+cd removal-studio
 
 # 2. Install dependencies
 npm install
@@ -94,7 +94,7 @@ Access the application at `http://localhost:8080`.
 
 ## Benchmark & Performance
 
-Silhouex includes a benchmarking suite (`benchmark/`) evaluating inference latencies and edge quality:
+Removal Studio includes a benchmarking suite (`benchmark/`) evaluating inference latencies and edge quality:
 
 | Model | Architecture | Runtime | Inference Latency | Edge Detail Rating |
 |---|---|---|---|---|
@@ -140,7 +140,7 @@ Or open the in-browser hardware diagnostic at `/benchmark.html`.
 ├── public/
 │   ├── samples/                    # Preloaded demo test images
 │   ├── benchmark.html              # In-browser hardware diagnostic tool
-│   └── favicon.svg                 # Silhouex logo favicon
+│   └── favicon.svg                 # Removal Studio logo favicon
 ├── Dockerfile                      # Production multi-stage Nginx container
 ├── docker-compose.yml              # One-command compose configuration
 ├── nginx.conf                      # COOP/COEP isolation headers & caching

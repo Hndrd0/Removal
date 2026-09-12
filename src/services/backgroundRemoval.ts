@@ -87,8 +87,45 @@ export async function removeBackgroundClientSide(
       }
     }
 
-    // In-browser inference
-    const rawCutoutBlob = await removeBackground(inputSource, config);
+    // In-browser inference with automatic CPU/WASM fallback
+    let rawCutoutBlob: Blob;
+    try {
+      rawCutoutBlob = await removeBackground(inputSource, config);
+    } catch (primaryErr: unknown) {
+      // If GPU/WebGPU failed (e.g. backend not found, webgpuInit error, adapter error, context loss),
+      // seamlessly retry using CPU (WASM SIMD)
+      if (config.device !== 'cpu') {
+        console.warn('WebGPU inference failed, retrying with CPU (WASM SIMD) fallback:', primaryErr);
+        report(
+          'loading-model',
+          30,
+          'WebGPU unavailable, switching to CPU / WASM fallback...',
+          'Loading multi-threaded WebAssembly model'
+        );
+        const fallbackConfig: Config = {
+          ...config,
+          device: 'cpu',
+          progress: (key: string, current: number, total: number) => {
+            if (key.startsWith('fetch:')) {
+              const percent = total > 0 ? (current / total) * 60 : 30;
+              const mbCurrent = (current / (1024 * 1024)).toFixed(1);
+              const mbTotal = (total / (1024 * 1024)).toFixed(1);
+              report(
+                'loading-model',
+                20 + percent * 0.7,
+                'Fetching WASM model weights...',
+                `Downloading: ${mbCurrent}MB / ${mbTotal}MB (cached locally)`
+              );
+            } else if (key.startsWith('compute:') || key.includes('onnx')) {
+              report('segmenting', 75, 'Analyzing image with AI segmentation (CPU WASM)...', 'Computing dichotomous edge mask');
+            }
+          },
+        };
+        rawCutoutBlob = await removeBackground(inputSource, fallbackConfig);
+      } else {
+        throw primaryErr;
+      }
+    }
 
     report('refining', 88, 'Refining edges and decontaminating halos...', 'Applying edge-aware smoothing and color decontamination');
 

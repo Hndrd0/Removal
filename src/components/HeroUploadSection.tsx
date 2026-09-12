@@ -143,15 +143,14 @@ export const HeroUploadSection: React.FC<HeroUploadSectionProps> = ({
             </div>
           </div>
 
-          {/* Remove.bg Iconic Headline */}
+          {/* Hero Headline & Tagline */}
           <div className="space-y-2">
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-ink tracking-tight leading-[1.08]">
-              Remove Image Background
+              Studio-quality background removal.
             </h1>
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1 text-2xl sm:text-3xl font-bold text-ink">
-              <span>100% Automatically and</span>
               <span className="px-3.5 py-0.5 rounded-full bg-accent text-accent-ink text-xl sm:text-2xl font-black shadow-sm">
-                Free
+                100% client-side.
               </span>
             </div>
             <p className="text-muted text-sm sm:text-base max-w-md mx-auto lg:mx-0 pt-2 leading-relaxed">

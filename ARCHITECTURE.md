@@ -1,8 +1,8 @@
-# Silhouex Architecture
+# Removal Studio Architecture
 
 ## 1. Architectural Overview
 
-Silhouex is designed from the ground up to operate as a **100% client-side zero-knowledge application**. The entire image processing pipeline—from byte inspection to deep neural network inference and canvas post-processing—executes entirely within the user's browser sandbox.
+Removal Studio is designed from the ground up to operate as a **100% client-side zero-knowledge application**. The entire image processing pipeline—from byte inspection to deep neural network inference and canvas post-processing—executes entirely within the user's browser sandbox.
 
 ```mermaid
 flowchart TD
@@ -59,7 +59,7 @@ $$C_{observed} = \alpha C_{foreground} + (1 - \alpha) C_{background}$$
 
 If the background is removed naively, $(1 - \alpha) C_{background}$ creates a visible halo (e.g. white fringe on dark cutout).
 
-Silhouex applies a color deconvolution algorithm:
+Removal Studio applies a color deconvolution algorithm:
 1. For every pixel with $15 \le \alpha \le 235$:
 2. Inspect an 8-neighborhood kernel for solid foreground donor pixels ($\alpha_{donor} \ge 230$).
 3. Compute the mean donor color $\bar{C}_{fg} = \frac{1}{N} \sum C_{donor}$.
@@ -77,7 +77,7 @@ Solid foreground objects occasionally contain false-negative pinhole drops cause
 
 ## 4. Full Resolution Preservation
 
-Unlike cloud services that downsample images to 512×512 to save server compute costs, Silhouex:
+Unlike cloud services that downsample images to 512×512 to save server compute costs, Removal Studio:
 1. Resizes input to the model's receptive field for segmentation.
 2. Interpolates the resulting alpha matte back to the exact $W_{orig} \times H_{orig}$ dimensions using bicubic interpolation.
 3. Applies post-processing directly on the full-resolution pixel buffer.

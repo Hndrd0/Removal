@@ -187,7 +187,7 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
           <div className="flex items-center gap-2.5">
             <span className="w-2 h-2 rounded-full bg-accent inline-block"></span>
-            <span className="font-semibold text-ink text-sm">Silhouex</span>
+            <span className="font-semibold text-ink text-sm">Removal Studio</span>
             <span>·</span>
             <span className="font-mono text-[11px]">100% In-Browser AI Background Remover</span>
           </div>

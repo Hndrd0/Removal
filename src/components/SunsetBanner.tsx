@@ -21,7 +21,7 @@ export const SunsetBanner: React.FC<SunsetBannerProps> = ({ onOpenPrivacy }) => 
           <p className="text-muted leading-relaxed">
             remove.bg&apos;s background removal is moving to Canva and will sunset on <strong>1 December 2026</strong>.{' '}
             <span className="text-ink font-medium">
-              Silhouex is your free, 100% in-browser alternative that will never shut down or paywall exports.
+              Removal Studio is your free, 100% in-browser alternative that will never shut down or paywall exports.
             </span>
           </p>
         </div>

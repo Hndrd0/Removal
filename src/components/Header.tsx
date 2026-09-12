@@ -36,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <span className="w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)] animate-pulse" />
             <span className="font-display font-semibold text-lg sm:text-xl tracking-tight text-ink select-none">
-              Silhouex
+              Removal Studio
             </span>
           </button>
           <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full bg-paper-2 border border-rule font-mono text-[10px] text-muted font-medium">

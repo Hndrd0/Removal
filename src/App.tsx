@@ -23,7 +23,7 @@ import { validateAndLoadImage } from './services/imageValidation';
 import { removeBackgroundClientSide } from './services/backgroundRemoval';
 import type { ProcessProgress, ProcessingResult } from './types';
 
-const WALKTHROUGH_STORAGE_KEY = 'silhouex_walkthrough_seen';
+const WALKTHROUGH_STORAGE_KEY = 'removal_studio_walkthrough_seen';
 
 export const App: React.FC = () => {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
@@ -93,16 +93,16 @@ export const App: React.FC = () => {
     if (nextIsDark) {
       document.documentElement.classList.remove('light');
       document.documentElement.classList.add('dark');
-      localStorage.setItem('silhouex-theme', 'dark');
+      localStorage.setItem('removal-studio-theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
       document.documentElement.classList.add('light');
-      localStorage.setItem('silhouex-theme', 'light');
+      localStorage.setItem('removal-studio-theme', 'light');
     }
   };
 
   // Main processing pipeline
-  const processImageFile = async (file: File) => {
+  const processImageFile = useCallback(async (file: File) => {
     // Revoke previous URLs
     if (originalUrl) URL.revokeObjectURL(originalUrl);
     if (result?.url) URL.revokeObjectURL(result.url);
@@ -160,7 +160,7 @@ export const App: React.FC = () => {
         details: msg,
       });
     }
-  };
+  }, [originalUrl, result, haloDecontamination, edgeSmoothing]);
 
   // Sample image loader
   const handleSampleSelected = async (samplePath: string, sampleName: string) => {
@@ -231,7 +231,7 @@ export const App: React.FC = () => {
         }
       }
     },
-    [progress.stage, haloDecontamination, edgeSmoothing]
+    [progress.stage, processImageFile]
   );
 
   useEffect(() => {
@@ -244,7 +244,10 @@ export const App: React.FC = () => {
     originalUrl: null,
     resultUrl: null,
   });
-  activeUrlsRef.current = { originalUrl, resultUrl: result?.url || null };
+
+  useEffect(() => {
+    activeUrlsRef.current = { originalUrl, resultUrl: result?.url || null };
+  }, [originalUrl, result?.url]);
 
   useEffect(() => {
     return () => {

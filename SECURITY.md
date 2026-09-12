@@ -1,12 +1,12 @@
-# Silhouex Security Policy & Threat Model
+# Removal Studio Security Policy & Threat Model
 
-Silhouex treats all uploaded files as potentially hostile input and implements multi-layer defense-in-depth security.
+Removal Studio treats all uploaded files as potentially hostile input and implements multi-layer defense-in-depth security.
 
 ---
 
 ## 1. Threat Model & Protections
 
-| Threat Vector | Risk Description | Silhouex Mitigation |
+| Threat Vector | Risk Description | Removal Studio Mitigation |
 |---|---|---|
 | **Malicious File Upload / RCE** | Attacker uploads executable or script disguised as image | **Zero Server Execution**: Images are decoded exclusively by browser image decoders inside the client sandbox. Server never executes uploaded binaries. |
 | **MIME-Type Spoofing** | Attacker sets `Content-Type: image/png` on a non-image file | **Magic-Byte Sniffing**: Header bytes are inspected (`FF D8 FF` for JPEG, `89 50 4E 47` for PNG, `RIFF...WEBP` for WebP). Non-matching files are rejected immediately. |
@@ -19,7 +19,7 @@ Silhouex treats all uploaded files as potentially hostile input and implements m
 
 ## 2. Browser Sandboxing
 
-Silhouex relies on the modern web platform security model:
+Removal Studio relies on the modern web platform security model:
 1. **No Native Binaries**: Inference runs within WebGPU compute pipelines or WebAssembly virtual machines.
 2. **Same-Origin Policy**: No cross-origin data exfiltration.
 3. **No Local Storage Leaks**: No persistent storage of user images; memory is reclaimed when the tab closes.

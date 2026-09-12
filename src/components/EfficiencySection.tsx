@@ -25,7 +25,7 @@ export const EfficiencySection: React.FC<EfficiencySectionProps> = ({
           </h2>
 
           <p className="text-muted text-sm sm:text-base leading-relaxed">
-            With Silhouex, isolating subjects from complex backgrounds is lightning fast. Bulk editing allows you to process hundreds of images with parallel WebGPU shaders without network latency or upload limits.
+            With Removal Studio, isolating subjects from complex backgrounds is lightning fast. Bulk editing allows you to process hundreds of images with parallel WebGPU shaders without network latency or upload limits.
           </p>
 
           <div className="space-y-2.5 pt-2 font-mono text-xs text-ink">

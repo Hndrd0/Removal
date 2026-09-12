@@ -1,4 +1,4 @@
-# Silhouex Model Benchmark & Selection Report
+# Removal Studio Model Benchmark & Selection Report
 
 ## 1. Exact Model Selected
 
@@ -96,7 +96,7 @@ Tested on diverse real-world subjects:
 
 ## 9. Scaling Strategy
 
-Because Silhouex is **100% client-sided**:
+Because Removal Studio is **100% client-sided**:
 - **Hosting Scalability**: Infinite scalability. 100,000 concurrent users cost $0 in backend inference compute because 100% of the computation happens on the users' devices.
 - **Serving Static Assets**: A standard static CDN (Cloudflare Pages, CloudFront, or Vercel) can serve millions of requests for pennies.
 

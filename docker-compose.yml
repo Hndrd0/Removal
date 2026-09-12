@@ -1,9 +1,9 @@
 services:
-  silhouex:
+  removal-studio:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: silhouex-app
+    container_name: removal-studio-app
     restart: unless-stopped
     ports:
       - "${PORT:-8080}:80"

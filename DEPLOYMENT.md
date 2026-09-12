@@ -1,6 +1,6 @@
-# Silhouex Production Deployment Guide
+# Removal Studio Production Deployment Guide
 
-Silhouex is designed for frictionless, zero-maintenance deployment. Because all AI inference runs directly in the user's browser, the server only serves static files and WASM/ONNX assets.
+Removal Studio is designed for frictionless, zero-maintenance deployment. Because all AI inference runs directly in the user's browser, the server only serves static files and WASM/ONNX assets.
 
 ---
 
@@ -10,8 +10,8 @@ Silhouex is designed for frictionless, zero-maintenance deployment. Because all 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/silhouex.git
-   cd silhouex
+   git clone https://github.com/your-username/removal-studio.git
+   cd removal-studio
    ```
 
 2. Start the container:
@@ -19,7 +19,7 @@ Silhouex is designed for frictionless, zero-maintenance deployment. Because all 
    docker compose up -d
    ```
 
-3. Silhouex will be running at `http://localhost:8080`.
+3. Removal Studio will be running at `http://localhost:8080`.
 
 To change the exposed port, set `PORT=3000` in `.env`.
 
@@ -27,7 +27,7 @@ To change the exposed port, set `PORT=3000` in `.env`.
 
 ### Method B: Static Hosting (Cloudflare Pages / Vercel / Netlify)
 
-Because Silhouex is a static Single-Page Application, it can be deployed for **free** to global edge networks.
+Because Removal Studio is a static Single-Page Application, it can be deployed for **free** to global edge networks.
 
 #### Cloudflare Pages
 1. Build command: `npm run build`
@@ -70,7 +70,7 @@ server {
     ssl_certificate /etc/letsencrypt/live/removebg.yourdomain.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/removebg.yourdomain.com/privkey.pem;
 
-    root /var/www/silhouex/dist;
+    root /var/www/removal-studio/dist;
     index index.html;
 
     # Crucial threading headers for WebAssembly SIMD
@@ -97,7 +97,7 @@ server {
 ### Caddy Configuration
 ```caddy
 removebg.yourdomain.com {
-    root * /var/www/silhouex/dist
+    root * /var/www/removal-studio/dist
     file_server
 
     header {

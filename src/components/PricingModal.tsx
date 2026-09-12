@@ -68,7 +68,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onU
           </div>
 
           <p className="text-xs text-muted leading-relaxed">
-            Because Silhouex runs 100% on your device&apos;s GPU via WebGPU and WebAssembly, we don&apos;t pay cloud server bills to process your images. Therefore, we pass that 100% savings directly to you &mdash; powered purely by local hardware and run by the love of you.
+            Because Removal Studio runs 100% on your device&apos;s GPU via WebGPU and WebAssembly, we don&apos;t pay cloud server bills to process your images. Therefore, we pass that 100% savings directly to you &mdash; powered purely by local hardware and run by the love of you.
           </p>
 
           <div className="mt-4 pt-4 border-t border-rule space-y-2 text-xs font-mono text-ink">
@@ -102,7 +102,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onU
           }}
           className="w-full py-3.5 rounded-full bg-accent hover:bg-accent-hover text-accent-ink font-display font-bold text-sm tracking-tight transition-all cursor-pointer shadow-sm active:scale-[0.98] flex items-center justify-center gap-2"
         >
-          <span>Use Silhouex For Free</span>
+          <span>Use Removal Studio For Free</span>
           <Sparkles className="w-4 h-4" />
         </button>
 

@@ -73,7 +73,7 @@ export const UseCasesSection: React.FC = () => {
           One Tool, Endless Uses
         </h2>
         <p className="text-muted text-sm sm:text-base leading-relaxed">
-          Whether you need pure white backdrops for marketplace listings, transparent PNGs for graphic design, or automated pipelines for software, Silhouex delivers studio quality in seconds.
+          Whether you need pure white backdrops for marketplace listings, transparent PNGs for graphic design, or automated pipelines for software, Removal Studio delivers studio quality in seconds.
         </p>
       </div>
 

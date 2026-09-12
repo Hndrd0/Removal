@@ -1,0 +1,7 @@
+{
+  "name": "Removal Studio",
+  "description": "Studio-quality background removal. 100% client-side in-browser AI neural matting. Zero server uploads, zero telemetry, full original resolution transparent PNG output.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+  ]
+}
