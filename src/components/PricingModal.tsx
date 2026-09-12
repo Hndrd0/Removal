@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, CheckCircle, HeartHandshake, Heart, Sparkles } from 'lucide-react';
+import { RAZORPAY_PAYMENT_LINK } from '../config/donation';
 
 interface PricingModalProps {
   isOpen: boolean;
@@ -105,6 +106,29 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onU
           <span>Use Removal Studio For Free</span>
           <Sparkles className="w-4 h-4" />
         </button>
+
+        {/* Subtle Support Link */}
+        <div className="mt-4 pt-3 border-t border-rule flex flex-col gap-2">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-[11px] text-muted font-mono leading-tight">
+              Saved you time or money?
+            </p>
+            <a
+              id="pricing-support-button"
+              href={RAZORPAY_PAYMENT_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-paper hover:bg-paper-3 border border-rule hover:border-accent/40 text-ink text-xs font-mono font-medium transition-all cursor-pointer shadow-xs active:scale-[0.97]"
+              aria-label="Support the project on Razorpay (opens in a new tab)"
+            >
+              <Heart className="w-3.5 h-3.5 text-accent fill-accent" />
+              <span>Support the project</span>
+            </a>
+          </div>
+          <p className="text-[10px] text-muted font-mono text-left leading-relaxed">
+            Note: Checkout is hosted under <strong className="text-ink font-semibold">GreenJournal</strong> (another project by the same developer). 100% of your voluntary donation directly supports Removal.
+          </p>
+        </div>
 
         <p className="mt-3 text-center font-mono text-[11px] text-muted flex items-center justify-center gap-1">
           <span>Made with care &amp; run by the love of you</span>

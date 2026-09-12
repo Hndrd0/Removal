@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Sun, Moon, Menu, X } from 'lucide-react';
+import { Sun, Moon, Menu, X, Heart } from 'lucide-react';
+import { RAZORPAY_PAYMENT_LINK } from '../config/donation';
 
 interface HeaderProps {
   onOpenPrivacy?: () => void;
@@ -59,6 +60,18 @@ export const Header: React.FC<HeaderProps> = ({
             <span>Pricing</span>
             <span className="px-1.5 py-0.5 rounded-full bg-accent/15 text-accent font-mono text-[10px] font-semibold">Free</span>
           </button>
+          <a
+            id="header-support-link"
+            href={RAZORPAY_PAYMENT_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-1.5 rounded-full hover:text-ink hover:bg-paper-2 transition-colors cursor-pointer flex items-center gap-1.5 text-muted hover:text-accent"
+            title="Support the project ❤️"
+            aria-label="Support the project on Razorpay (opens in a new tab)"
+          >
+            <Heart className="w-3.5 h-3.5 text-accent fill-accent" />
+            <span>Support</span>
+          </a>
         </div>
 
         {/* Right Actions: Theme Toggle, Mobile Hamburger */}
@@ -116,6 +129,18 @@ export const Header: React.FC<HeaderProps> = ({
             <span>Pricing</span>
             <span className="px-1.5 py-0.5 rounded-full bg-accent/15 text-accent text-[10px]">Free</span>
           </button>
+          <a
+            id="mobile-header-support-link"
+            href={RAZORPAY_PAYMENT_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-left px-3 py-2 rounded-xl hover:bg-paper-2 transition-colors flex items-center justify-between text-accent"
+            aria-label="Support the project on Razorpay (opens in a new tab)"
+          >
+            <span>Support the project ❤️</span>
+            <Heart className="w-3.5 h-3.5 fill-accent text-accent" />
+          </a>
         </div>
       )}
     </header>
