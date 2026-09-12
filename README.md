@@ -55,8 +55,8 @@ Most background-removal tools either upload your private photos to remote cloud 
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/your-username/removal-studio.git
-cd removal-studio
+git clone https://github.com/your-username/removal.git
+cd removal
 
 # 2. Install dependencies
 npm install
